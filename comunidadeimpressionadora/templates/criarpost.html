@@ -1,0 +1,47 @@
+{% extends 'base.html' %}  <!-- está importando a configuração do base.html -->
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="" class="border p-4 mt-2"> <!-- border é classe de borda do bootstrap. p-4 é padding de 4. mt-2 é margin top de 2 -->
+                    {{ form.csrf_token }} <!-- segurança dos formulários -->
+                    <legend>Criar Post</legend>
+                    <fieldset> <!-- organização dos campos -->
+                        <div class="form-group">
+                            {{ form.titulo.label(class="form-control-label") }}  <!-- rótulo do campo com o StringField, PasswordField... -->
+
+                            {% if form.titulo.errors %}
+                                {{ form.titulo(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form.titulo.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form.titulo(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.corpo.label(class="form-control-label") }}  <!-- rótulo do campo com o StringField, PasswordField... -->
+
+                            {% if form.corpo.errors %}
+                                {{ form.corpo(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form.corpo.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form.corpo(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    {{ form.botao_submit_criar_post(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

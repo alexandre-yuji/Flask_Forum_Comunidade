@@ -1,0 +1,40 @@
+<!-- página de configuração padrão das outras páginas -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cominudade Impressionadora</title>
+
+        <!-- css do bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">  <!-- css puxando do arquivo main.css que eu criei -->
+
+        {% block head %}
+        {% endblock %}
+
+    </head>
+    <body>
+
+        {% include 'navbar.html' %}  <!-- puxo o código de navbar do bootstrap pra cá -->
+
+        <div class="container">
+            {% with mensagens = get_flashed_messages(with_categories=True) %} <!-- trabalhando com as mensagens flash criadas na função de login do arquivo main -->
+                {% if mensagens %}
+                    {% for categoria, mensagem in mensagens %}  <!-- categoria é o estilo do bootstrap -->
+                        <div class="alert {{ categoria }}">
+                            {{ mensagem }}  <!-- exibe a mensagem configurada com flash na função login -->
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {% block body %}
+        {% endblock %}
+
+        <!-- js do bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    </body>
+</html>

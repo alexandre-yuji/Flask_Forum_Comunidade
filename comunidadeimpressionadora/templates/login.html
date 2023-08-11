@@ -1,0 +1,113 @@
+{% extends 'base.html' %}  <!-- está importando a configuração do base.html -->
+
+{% block body %}
+
+    <div class="container">
+        <h1>Faça Login ou Crie Sua Conta Para Continuar</h1>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="" class="border p-4 mt-2"> <!-- border é classe de borda do bootstrap. p-4 é padding de 4. mt-2 é margin top de 2 -->
+                    {{ form_login.csrf_token }} <!-- segurança dos formulários -->
+                    <legend>Login</legend>
+                    <fieldset> <!-- organização dos campos -->
+                        <div class="form-group">
+                            {{ form_login.email.label(class="form-control-label") }}  <!-- rótulo do campo com o StringField, PasswordField... -->
+
+                            {% if form_login.email.errors %}
+                                {{ form_login.email(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form_login.email.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form_login.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_login.senha.label(class="form-control-label") }} <!-- aplicar classe do bootstrap em variável label do python -->
+                            {% if form_login.senha.errors %}
+                                {{ form_login.senha(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form_login.senha.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form_login.senha(class="form-control") }} <!-- aplicar classe do bootstrap em variável do python -->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_login.lembrar_dados.label(class="form-check-label") }}
+                            {{ form_login.lembrar_dados(class="form-check-input") }}
+                        </div>
+                    </fieldset>
+                    {{ form_login.botao_submit_login(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
+            <div class="col">
+                <form method="POST" action="" class="border p-4 mt-2">
+                    {{ form_criar_conta.csrf_token }} <!-- segurança dos formulários, sempre abaixo da tag form -->
+                    <legend>Criar Conta</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_criar_conta.username.label(class="form-control-label") }}
+                            {% if form_criar_conta.username.errors %}
+                                {{ form_criar_conta.username(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form_criar_conta.username.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form_criar_conta.username(class="form-control") }} <!-- aplicar classe do bootstrap em variável do python -->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criar_conta.email.label(class="form-control-label") }}
+                            {% if form_criar_conta.email.errors %}
+                                {{ form_criar_conta.email(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form_criar_conta.email.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form_criar_conta.email(class="form-control") }} <!-- aplicar classe do bootstrap em variável do python -->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criar_conta.senha.label(class="form-control-label") }}
+                            {% if form_criar_conta.senha.errors %}
+                                {{ form_criar_conta.senha(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form_criar_conta.senha.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form_criar_conta.senha(class="form-control") }} <!-- aplicar classe do bootstrap em variável do python -->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criar_conta.confirmacao_senha.label(class="form-control-label") }}
+                            {% if form_criar_conta.confirmacao_senha.errors %}
+                                {{ form_criar_conta.confirmacao_senha(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form_criar_conta.confirmacao_senha.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form_criar_conta.confirmacao_senha(class="form-control") }} <!-- aplicar classe do bootstrap em variável do python -->
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    {{ form_criar_conta.botao_submit_criar_conta(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

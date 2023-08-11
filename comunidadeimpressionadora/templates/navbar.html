@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid container">
+    <a class="navbar-brand" href="{{ url_for('home') }}">Comunidade Impressionadora</a>  <!-- url_for para chamar a função usuarios e manter o caminho mesmo que o nome do caminho mude-->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ url_for('home') }}">Início</a>  <!-- url_for para chamar a função usuarios e manter o caminho mesmo que o nome do caminho mude-->
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('usuarios') }}">Usuários</a>  <!-- url_for para chamar a função usuarios e manter o caminho mesmo que o nome do caminho mude-->
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('contato') }}">Contato</a>  <!-- url_for para chamar a função usuarios e manter o caminho mesmo que o nome do caminho mude-->
+        </li>
+      </ul>
+      <ul class="d-flex navbar-nav">  <!-- d-flex deixa um item do lado do outro -->
+        {% if current_user.is_authenticated %}  <!-- utiliza biblioteca current_user para verificar se o usuário está logado -->
+          <li class="nav-item">   <!-- se estiver logado, aparece opções Meu Perfil, Criar Post e Sair -->
+            <a class="nav-link" href="{{ url_for('criar_post') }}">Criar Post</a>  <!-- url_for para chamar a função criar_post e manter o caminho mesmo que o nome do caminho mude-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('perfil') }}">Meu Perfil</a>  <!-- url_for para chamar a função perfil e manter o caminho mesmo que o nome do caminho mude-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('sair') }}">Sair</a>  <!-- url_for para chamar a função sair e manter o caminho mesmo que o nome do caminho mude-->
+          </li>
+        {% else %}  <!-- se não estiver logado, aparece opções Login e criar conta -->
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>  <!-- url_for para chamar a função login e manter o caminho mesmo que o nome do caminho mude-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Criar Conta</a>  <!-- url_for para chamar a login usuarios e manter o caminho mesmo que o nome do caminho mude-->
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

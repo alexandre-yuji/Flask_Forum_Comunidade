@@ -1,0 +1,41 @@
+{% extends 'base.html' %}  <!-- está importando a configuração do base.html -->
+                            <!-- quando eu extendo outra página, toda o código seguinte tem que estar dentro de blocos -->
+
+{% block body %}
+
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card p-3">
+            <div class="d-flex align-items-center">
+                <div class="image pe-2"> <img src="{{ foto_perfil }}" class="rounded" width="200"> </div>  <!-- pe-2 é padding na direita com tamanho 2 entre a imagem e a caixa de informações. foto_perfil está vindo do routes e da pasta static -->
+                <div class="ml-3 w-100">
+                    <h4 class="mb-0 mt-0">{{ current_user.username }}</h4> <span>{{ current_user.email }}</span> <!-- pego o nome e email do usuário logado -->
+                    <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        {% if 'Não Informado' in current_user.cursos %}
+                            <div class="d-flex flex-column"> <span class="articles">Cursos</span> <span class="number1">0</span> </div> <!-- quando o usuário não tem cursos, o código debaixo estava adicionando +1 de qualquer maneira -->
+                        {% else %}
+                            <div class="d-flex flex-column"> <span class="articles">Cursos</span> <span class="number1">{{ current_user.cursos.count(';') + 1 }}</span> </div>  <!-- conto os cursos pela quantidade de ; + 1 da string criada na função atualizar cursos -->
+                        {% endif %}
+                        <div class="d-flex flex-column"> <span class="rating">Posts</span> <span class="number3">{{ current_user.contar_posts() }}</span> </div>
+                    </div>
+                    <div class="button mt-2 d-flex flex-row align-items-center">
+                        <a class="w-100" href="{{ url_for('editar_perfil') }}">  <!-- botão me leva para a função editar_perfil no arquivo routes -->
+                            <button class="btn btn-sm btn-outline-primary w-100">Editar Perfil</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col col-4" style="text-align: center">
+            <strong>Cursos</strong><br>
+            {% for curso in current_user.cursos.split(';') %} <!-- para cada curso na lista de cursos, pegando cada item a cada ; -->
+                <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>
+            {% endfor %}
+        </div>
+    </div>
+
+{% block form_editar_perfil %}
+{% endblock %}
+
+{% endblock %}

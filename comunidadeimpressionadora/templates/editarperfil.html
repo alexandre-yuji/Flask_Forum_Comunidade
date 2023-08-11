@@ -1,0 +1,68 @@
+{% extends 'perfil.html' %} <!-- quando eu extendo outra página, toda o código seguinte tem que estar dentro de blocos -->
+
+
+{% block form_editar_perfil %}
+
+    <div class="container">
+        <hr>
+        <div class="row">                                           <!-- enctype permite que o formulário reconheça o arquivo que eu escolhi do meu computador para trocar a foto -->
+            <div class="col">                                       <!-- sempre que for inserir arquivo através de formulário, tem que ter o enctype nessa parte do html -->
+                <form method="POST" action="" class="border p-4 mt-2" enctype="multipart/form-data"> <!-- border é classe de borda do bootstrap. p-4 é padding de 4. mt-2 é margin top de 2 -->
+                    {{ form.csrf_token }} <!-- segurança dos formulários -->
+                    <legend>Editar Perfil</legend>
+                    <fieldset> <!-- organização dos campos -->
+                        <div class="form-group">
+                            {{ form.username.label(class="form-control-label") }}  <!-- rótulo do campo com o StringField, PasswordField... -->
+
+                            {% if form.username.errors %}
+                                {{ form.username(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form.username.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form.username(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email.label(class="form-control-label") }}  <!-- rótulo do campo com o StringField, PasswordField... -->
+
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control is-invalid") }}  <!-- mesmos nomes que foram dados nas classes do arquivo forms -->
+                            <div class="invalid-feedback">  <!-- is-invalid e invalid-feedback são classes do bootstrap pra mensagem de erro e retornam o validator do arquivo forms-->
+                                {% for erro in form.email.errors %}
+                                    {{ erro }}
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                {{ form.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.foto_perfil.label }}
+                            {{ form.foto_perfil(class="form-control-file") }} <!-- classe do bootstrap -->
+                            {% if form.foto_perfil.errors %}
+                                {% for erro in form.foto_perfil.errors %}
+                                    <span class="text-danger">{{ erro }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <p>Cursos</p>
+                        {% for campo in form %}
+                            {% if 'curso_' in campo.name %}  <!-- se a varíável no arquivo forms começar com curso_, eu pego o texto dela -->
+                                <div class="form-group">
+                                    {{ campo(class="form-check-input") }}
+                                    {{ campo.label(class="form-check-label") }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                    {{ form.botao_submit_editar_perfil(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
